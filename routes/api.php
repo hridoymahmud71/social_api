@@ -19,3 +19,7 @@ Route::prefix('auth')->group(function () {
         Route::get('/logout', [AuthController::class, 'logout'])->name('api.logout');
     });
 });
+
+Route::fallback(function () {
+    return response()->json(['result' => false, 'message' => 'Url not found'], 404);
+});
