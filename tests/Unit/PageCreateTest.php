@@ -43,7 +43,7 @@ class PageCreateTest extends TestCase
     public function testPageCreateAuthenticatedWithValidData()
     {
 
-        $data = ['name' => "A very good page name"];
+        $data = ['page_name' => "A very good page name"];
         $header = [
             'Accept' => '*/*',
             'Content-Type' => 'application/json',

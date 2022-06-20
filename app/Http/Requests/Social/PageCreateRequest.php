@@ -26,15 +26,15 @@ class PageCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:50',
+            'page_name' => 'required|string|max:50',
         ];
     }
 
     public function messages()
     {
         return [
-            'name.required' => 'Page name is required',
-            'name.max' => 'Maximum 50 characters are allowed for Page name',
+            'page_name.required' => 'Page name is required',
+            'page_name.max' => 'Maximum 50 characters are allowed for Page name',
         ];
     }
 

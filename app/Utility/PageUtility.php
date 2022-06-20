@@ -15,7 +15,7 @@ class PageUtility
             \DB::beginTransaction();
 
             $page = Page::create([
-                'name'        => $request_data['name'],
+                'name'        => $request_data['page_name'],
                 'user_id'     => auth()->user()->id,
             ]);
 
