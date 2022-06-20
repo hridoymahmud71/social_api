@@ -6,7 +6,7 @@ use Tests\TestCase;
 
 class LoginTest extends TestCase
 {
-    public function testLoginWithInvalidData()
+    public function testLognWithInvalidData()
     {
 
         $data = [];
@@ -21,11 +21,11 @@ class LoginTest extends TestCase
             ]);   
     }
 
-    public function testLoiginWithUnRegisteredEmail()
+    public function testLoginWithUnRegisteredEmail()
     {
 
         $data = [
-            "email" => "user1@example.com",
+            "email" => "usernone@example.com",
             "password" => "123456",
         ];
         $header = [
@@ -39,7 +39,7 @@ class LoginTest extends TestCase
         ]);        
     }
 
-    public function testLoiginWithWrongPassword()
+    public function testLoginWithWrongPassword()
     {
 
         $data = [
@@ -57,7 +57,7 @@ class LoginTest extends TestCase
         ]);        
     }
 
-    public function testLoiginWithCorrectUserData()
+    public function testLoginWithCorrectUserData()
     {
 
         $data = [
