@@ -18,4 +18,9 @@ class Page extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function posts()
+    {
+        return $this->morphMany(Post::class, 'postable');
+    }
 }

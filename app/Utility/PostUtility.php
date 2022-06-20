@@ -22,12 +22,41 @@ class PostUtility
 
             \DB::commit();
         } catch (\Exception  $e) {
-            dd($e);
+            //dd($e);
 
             \DB::rollback();
             return null;
         } catch (\Throwable $th) {
-            dd($th);
+            //dd($th);
+
+            \DB::rollback();
+            return null;
+        }
+
+        // if everything goes alright
+        return $post;
+    }
+
+    public static function create_page_post($request_data,$page)
+    {
+
+        try {
+            \DB::beginTransaction();
+
+            $post =  $page->posts()->create([
+                'content'  => $request_data['post_content'],
+            ]);
+
+            // in case more dependent tables are needed , insert from here
+
+            \DB::commit();
+        } catch (\Exception  $e) {
+            //dd($e);
+
+            \DB::rollback();
+            return null;
+        } catch (\Throwable $th) {
+            //dd($th);
 
             \DB::rollback();
             return null;
