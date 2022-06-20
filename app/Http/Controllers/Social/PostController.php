@@ -31,8 +31,7 @@ class PostController extends Controller
         }
 
 
-        // user should not post from somebody else's page
-        //dd(auth()->user()->id , $page->user_id);
+        // user should not post from somebody else's page        
         if (auth()->user()->id != $page->user_id) {
             return response()->json(['result' => false, 'message' => 'Unauthorized'], 401);
         }
