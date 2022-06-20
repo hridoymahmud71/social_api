@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Api;
+namespace App\Http\Requests\Social;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Contracts\Validation\Validator;
 
-class LoginRequest extends FormRequest
+class PageCreateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,17 +26,15 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'required|email',
-            'password' => 'required'
+            'name' => 'required|string|max:50',
         ];
     }
 
     public function messages()
     {
         return [
-            'email.required' => 'Email is required',
-            'email.email' => 'Email must be a valid email address',
-            'password.required' => 'Password is required',
+            'name.required' => 'Page name is required',
+            'name.max' => 'Maximum 50 characters are allowed for Page name',
         ];
     }
 
@@ -46,7 +44,6 @@ class LoginRequest extends FormRequest
             'result'   => false,
             'message'   => 'Request is not valid',
             'errors'      =>  $validator->errors()->all(),
-            'user' => null
         ], 422));
     }
 }

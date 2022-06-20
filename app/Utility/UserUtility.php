@@ -28,12 +28,12 @@ class UserUtility
 
             \DB::commit();
         } catch (\Exception  $e) {
-            dd($e);
+            //dd($e);
             
             \DB::rollback();
             return null;
         } catch (\Throwable $th) {
-            dd($th);
+            //dd($th);
             
             \DB::rollback();
             return null;
