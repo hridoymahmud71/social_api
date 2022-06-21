@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Social\FeedController;
 use App\Http\Controllers\Social\FollowController;
 use App\Http\Controllers\Social\PageController;
 use App\Http\Controllers\Social\PostController;
@@ -37,6 +38,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     //follow
     Route::match(['put', 'post'],'follow/person/{user_id}', [FollowController::class, 'follow_person'])->name('api.person.follow');
     Route::match(['post', 'post'],'follow/page/{page_id}', [FollowController::class, 'follow_page'])->name('api.page.follow');
+
+    Route::get('person/feed', [FeedController::class, 'feed'])->name('api.person.feed');    
 });
 
 

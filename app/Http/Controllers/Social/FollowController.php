@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Social;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Page;
 use App\Models\PageFollower;

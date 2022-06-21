@@ -2,9 +2,7 @@
 
 namespace App\Utility;
 
-use App\Models\Page;
-use App\Models\User;
-use App\Models\UserFollower;
+
 use DB;
 
 class FollowUtility
