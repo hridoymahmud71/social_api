@@ -4,9 +4,23 @@ namespace Tests\Unit;
 use Tests\TestCase;
 use App\Models\User;
 use App\Models\Page;
-
+use App\Models\UserFollower;
 class PagePostCreateTest extends TestCase
 {
+    private $user1;
+    private $user2;
+    private $faker;
+
+    public function setUp(): void {
+
+        parent::setUp();
+
+        $this->user1 = User::inRandomOrder()->limit(1)->first();         
+        $this->user2 = User::inRandomOrder()->limit(1)->where('id','!=',$this->user1->id)->first();   
+        
+        $this->faker = \Faker\Factory::create();           
+    }
+
     public function testPagePostCreateUnAuthenticated()
     {
 
@@ -16,13 +30,11 @@ class PagePostCreateTest extends TestCase
             'Content-Type' => 'application/json',
             'Authorization' => "Bearer "
         ];
-
-        // make sure you have this user
-        $user = User::where('email', '=', 'user1@example.com')->first();
+      
 
         $page = Page::create([
-            'name'        => "User 1's x page",
-            'user_id'     => $user->id,
+            'name'        => "{$this->faker->word} {$this->faker->word} {$this->faker->word}",
+            'user_id'     => $this->user1->id,
         ]);
 
         $this->json('POST', "api/page/{$page->id}/attach-post", $data, $header)
@@ -38,13 +50,12 @@ class PagePostCreateTest extends TestCase
             'Content-Type' => 'application/json',
         ];
 
-        // make sure you have this user
-        $user = User::where('email', '=', 'user1@example.com')->first();
-        $this->actingAs($user);
+       
+        $this->actingAs($this->user1);
 
         $page = Page::create([
-            'name'        => "User 1's y page",
-            'user_id'     => $user->id,
+            'name'        => "{$this->faker->word} {$this->faker->word} {$this->faker->word}",
+            'user_id'     => $this->user1->id,
         ]);
 
         $this->json('POST', "api/page/{$page->id}/attach-post", $data, $header)
@@ -56,21 +67,18 @@ class PagePostCreateTest extends TestCase
     public function testPagePostWithUnautorizedUserData()
     {
 
-        $data = ['post_content' => "This is a test post content"];
+        $data = ['post_content' => $this->faker->text(rand(10,400))];
         $header = [
             'Accept' => '*/*',
             'Content-Type' => 'application/json',
         ];
 
-        $user1 = User::where('email', '=', 'user1@example.com')->first();
-
         $page = Page::create([
-            'name'        => "User 1's dummy page",
-            'user_id'     => $user1->id,
+            'name'        => "{$this->faker->word} {$this->faker->word} {$this->faker->word}",
+            'user_id'     => $this->user1->id,
         ]);
 
-        $user2 = User::where('email', '=', 'user2@example.com')->first();
-        $this->actingAs($user2);
+        $this->actingAs($this->user2);
 
         // user 2 is trying to post from user 1's page
         $this->json('POST', "api/page/{$page->id}/attach-post", $data, $header)
@@ -81,19 +89,17 @@ class PagePostCreateTest extends TestCase
     public function testPagePostCreateProperData()
     {
 
-        $data = ['post_content' => "This is a test post content"];
+        $data = ['post_content' => $this->faker->text(rand(10,400))];
         $header = [
             'Accept' => '*/*',
             'Content-Type' => 'application/json',
         ];
-
-        // make sure you have this user
-        $user = User::where('email', '=', 'user1@example.com')->first();
-        $this->actingAs($user);
+ 
+        $this->actingAs($this->user1);
 
         $page = Page::create([
-            'name'        => "User 1's good page",
-            'user_id'     => $user->id,
+            'name'        => "{$this->faker->word} {$this->faker->word} {$this->faker->word}",
+            'user_id'     => $this->user1->id,
         ]);
 
         $this->json('POST', "api/page/{$page->id}/attach-post", $data, $header)

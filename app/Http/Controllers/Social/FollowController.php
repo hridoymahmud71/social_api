@@ -35,7 +35,7 @@ class FollowController extends Controller
             return response()->json(['result' => false, 'message' => 'Could not follow'], 404);
         }
 
-        return response()->json(['result' => false, 'message' => 'Successfully following']);
+        return response()->json(['result' => true, 'message' => 'Successfully following']);
     }
 
     public function follow_page($page_id)
@@ -62,6 +62,6 @@ class FollowController extends Controller
             return response()->json(['result' => false, 'message' => 'Could not follow'], 404);
         }
 
-        return response()->json(['result' => false, 'message' => 'Successfully following']);
+        return response()->json(['result' => true, 'message' => 'Successfully following']);
     }
 }

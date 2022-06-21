@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Social;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\FeedCollection;
 use App\Http\Resources\PostResource;
 use App\Models\Page;
 use App\Models\Post;
@@ -31,8 +32,8 @@ class FeedController extends Controller
 
         $posts = $post_query->paginate(10);
 
-        return response()->json([
-            'feed' =>  PostResource::collection($posts)
-        ]);
+        return new FeedCollection($posts);
+
+        
     }
 }

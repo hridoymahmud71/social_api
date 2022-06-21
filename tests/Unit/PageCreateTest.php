@@ -6,6 +6,14 @@ use App\Models\User;
 
 class PageCreateTest extends TestCase
 {
+
+    private $user;
+
+    public function setUP(): void{
+        parent::setUP();
+        $this->user = User::inRandomOrder()->limit(1)->first();  
+    }
+
     public function testPageCreateUnAuthenticated()
     {
 
@@ -29,9 +37,8 @@ class PageCreateTest extends TestCase
             'Content-Type' => 'application/json',
         ];
 
-        // make sure you have this user
-        $user = User::where('email', '=', 'user1@example.com')->first();
-        $this->actingAs($user);
+ 
+        $this->actingAs($this->user);
 
 
         $this->json('POST', '/api/page/create', $data, $header)
@@ -49,10 +56,7 @@ class PageCreateTest extends TestCase
             'Content-Type' => 'application/json',
         ];
 
-        // make sure you have this user
-        $user = User::where('email', '=', 'user1@example.com')->first();
-        $this->actingAs($user);
-
+        $this->actingAs($this->user);
 
         $this->json('POST', '/api/page/create', $data, $header)
             ->assertJsonFragment([
