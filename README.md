@@ -1,3 +1,6 @@
+### Environment Setup
+ *Laravel 8* was used for development and **php 7.4** was used in the local environment.
+
 ### Api documentation
 ```https://www.getpostman.com/collections/d9f1f4bfc94e2d0c0c80```
 
