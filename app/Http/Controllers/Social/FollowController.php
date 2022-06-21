@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Page;
+use App\Models\PageFollower;
+use App\Models\UserFollower;
 use App\Utility\FollowUtility;
 
 class FollowController extends Controller
@@ -24,8 +26,8 @@ class FollowController extends Controller
         }
 
         // check if already following
-        if(auth()->user()->following()->where('id', $user->id)->exists()){
-            return response()->json(['result' => false, 'message' => 'Already follow this user']);  
+        if (UserFollower::where('follower_id', auth()->user()->id)->where('following_id', $user->id)->exists()) {
+            return response()->json(['result' => false, 'message' => 'Already follow this user']);
         }
 
         $followed =  FollowUtility::follow_user($user);
@@ -45,9 +47,22 @@ class FollowController extends Controller
             return response()->json(['result' => false, 'message' => 'Could not found page'], 404);
         }
 
-        // user should follow own page        
+        // user should not follow own page        
         if (auth()->user()->id == $page->user_id) {
-            return response()->json(['result' => false, 'message' => 'User should follow own page']);
+            return response()->json(['result' => false, 'message' => 'User should not follow own page']);
         }
+
+        // check if already following
+        if (PageFollower::where('follower_id', auth()->user()->id)->where('page_id', $page->id)->exists()) {
+            return response()->json(['result' => false, 'message' => 'Already follow this page']);
+        }
+
+        $followed =  FollowUtility::follow_page($page);
+
+        if (!$followed) {
+            return response()->json(['result' => false, 'message' => 'Could not follow'], 404);
+        }
+
+        return response()->json(['result' => false, 'message' => 'Successfully following']);
     }
 }

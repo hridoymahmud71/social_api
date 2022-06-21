@@ -23,4 +23,10 @@ class Page extends Model
     {
         return $this->morphMany(Post::class, 'postable');
     }
+
+    // users that follow this page
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'page_followers', 'page_id', 'follower_id');
+    }
 }
