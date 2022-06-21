@@ -17,9 +17,7 @@ class FollowSeeder extends Seeder
      */
     public function run()
     {
-        $users = User::all();
-        $pages = Page::all();
-        $faker = \Faker\Factory::create();
+        $users = User::all();        
 
         foreach ($users as $user) {
             
