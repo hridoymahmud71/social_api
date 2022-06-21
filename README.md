@@ -5,3 +5,7 @@ Api documentation can be found in the shareable link above. Please import to pos
 
 ### Migration
 Run ```php artisan migrate:fresh --seed```
+### How to run ?
+Locally simply run the file by  ```php artisan serve```
+If you deploy in a domain like ```mydomain.com``` make sure you set the root path upto **public** folder . So your path should be like ```/path/to/your_project/public```
+Configure the env accordingly

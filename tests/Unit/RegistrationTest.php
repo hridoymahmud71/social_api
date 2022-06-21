@@ -3,7 +3,6 @@
 namespace Tests\Unit;
 
 use Tests\TestCase;
-use Faker\Generator as Faker;
 use App\Models\User;
 
 
@@ -79,7 +78,7 @@ class RegistrationTest extends TestCase
         $data =   [
             'first_name' => $faker->firstName,
             'last_name' => $faker->lastName,
-            'email' => $faker->unique()->email,
+            'email' => $fake_email,
             "password" => "123456",
             "password_confirmation" => "123456"
         ];

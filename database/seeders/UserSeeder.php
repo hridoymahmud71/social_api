@@ -43,5 +43,27 @@ class UserSeeder extends Seeder
             'email'             => "user4@example.com",
             'email_verified_at' => date("Y-m-d H:i:s"),
         ]);
+
+        $number_of_users = 16; // 4+16=20 users
+        $faker = \Faker\Factory::create();
+
+        $user_count = 0;
+        while ($user_count <= $number_of_users) {
+
+            $fake_email = $faker->unique()->safeEmail;
+            while (User::where('email', '=', $fake_email)->exists()) {
+                $fake_email = $faker->unique()->safeEmail;
+            }
+
+            User::create([
+                'first_name'        => $faker->firstName,
+                'last_name'         => $faker->lastName,
+                'password'          => bcrypt("123456"),
+                'email'             => $fake_email,
+                'email_verified_at' => date("Y-m-d H:i:s"),
+            ]);
+
+            $user_count++;
+        }
     }
 }
